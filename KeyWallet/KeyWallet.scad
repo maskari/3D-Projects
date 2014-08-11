@@ -1,5 +1,5 @@
 
-include <library/functions.scad>;
+include <../library/functions.scad>;
 include <honeycomb/honeycomb.scad>;
 
 //swiss card details:
@@ -62,6 +62,10 @@ module body (length, width, thickness){
 //main body
 cube ([length, width, thickness]);
 
+
+translate([length-5,width/3,thickness-0.6])
+		screw(screwHoleSize/2,screwHoleSize/2+2,3,screwHoleSize/2,screwHoleSize/2,5);
+
 }
 
 
@@ -78,10 +82,11 @@ module cutouts(screwHoleSzie, width, length, cutoutradius, hole, thickness){
 		//Screw Hole Middle
 		translate([length/2+middlescrewoffset,(width/3+width/middlescrewoffset),0])
 		cylinder(r=screwHoleSize/2,h=30,$fn=20);
-	
+	// screw(rout1,rout2,hout,rin1,rin2,hin)
 		//Screw Hole  bottom
-		translate([length-5,width/3,0])
-		cylinder(r=screwHoleSize/2,h=30,$fn=20);
+		//translate([length-5,width/3,0])
+		//screw(screwHoleSize/2,screwHoleSize/2+2,5,screwHoleSize/2,screwHoleSize/2,5);
+		//cylinder(r=screwHoleSize/2,h=30,$fn=20);
 
       //right screw holes
           //Screw Hole top
@@ -108,7 +113,7 @@ module cutouts(screwHoleSzie, width, length, cutoutradius, hole, thickness){
 	
 			//Captive nut Hole bottom
 			translate([length-5,width/3,0])
-			nut(5.5,4);
+			nut(5.5,thickness-0.6);
 
 		//Captive nut holes right
 			//Captive nut Hole top
@@ -121,7 +126,7 @@ module cutouts(screwHoleSzie, width, length, cutoutradius, hole, thickness){
 	
 			//Captive nut Hole bottom
 			translate([length-5,width-width/3,0])
-			nut(5.5,4);
+			nut(5.5,thickness);
 
 
 			//Left Fingernail opener cutout
@@ -162,6 +167,8 @@ module cutouts(screwHoleSzie, width, length, cutoutradius, hole, thickness){
 						}
 		
 		
+
+					
 		// cutouts end
 	}
 
@@ -264,4 +271,21 @@ module cell(radius, height, floor_thickness){
 		}
 }
 
+
+
+module screw(rout1,rout2,hout,rin1,rin2,hin){
+difference(){
+union(){cylinder(h=0.6,r=rout2+0.5);
+translate([0,0,-0.6])
+difference(){
+		cylinder(h=hout,r1=rout1,r2=rout2);
+		cylinder(h=hin,r1=rin1,r2=rin2);
+		//cylinder(h=0.6,r=rout2+0.5);
+		}
+}
+}
+cylinder(h=0.1,r1=rin1,r2=rin2);
+}
+
+//screw(3,5,10,2,2,10);
 

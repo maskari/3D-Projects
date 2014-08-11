@@ -50,4 +50,4 @@ module pencil_holder(radius, hex_width, height, floor_thickness){
 	}
 }
 
-//pencil_holder(honeycomb_radius, cell_radius, height, floor_thickness);
+pencil_holder(honeycomb_radius, cell_radius, height, floor_thickness);
